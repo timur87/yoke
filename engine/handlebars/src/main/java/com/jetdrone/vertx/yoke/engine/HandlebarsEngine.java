@@ -36,10 +36,14 @@ public class HandlebarsEngine extends AbstractEngineSync<Template> {
     private final String extension;
 
     public HandlebarsEngine(final String views) {
-        this(views, ".hbs");
+        this(views, ".hbs", "{{", "}}");
     }
-
-    public HandlebarsEngine(final String views, final String extension) {
+    
+    public HandlebarsEngine(final String views, String extension) {
+        this(views, extension, "{{", "}}");
+    }
+    
+    public HandlebarsEngine(final String views, final String extension, String startDelimiter, String endDelimiter) {
         this.extension = extension;
 
         if ("".equals(views)) {
@@ -91,7 +95,8 @@ public class HandlebarsEngine extends AbstractEngineSync<Template> {
             public String getSuffix() {
                 return extension;
             }
-        });
+        }).startDelimiter(startDelimiter)
+        .endDelimiter(endDelimiter);
     }
 
     @Override
